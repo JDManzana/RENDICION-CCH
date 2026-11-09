@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caja chica · Boceto</title>
+<style>
+  :root{--nav:#132827;--green:#17614d;--ink:#17312d;--muted:#536860;--line:#dce7df;--bg:#f3f7f3;--paper:#fff;--soft:#e6f2e9}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,sans-serif} button,input,select{font:inherit} button{cursor:pointer} button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #31876d;outline-offset:2px} h1,h2,h3,p{margin:0} [hidden]{display:none!important}
+  .shell{min-height:100vh;display:grid;grid-template-columns:218px minmax(0,1fr)} aside{background:var(--nav);color:#eaf4ed;padding:28px 18px;display:flex;flex-direction:column;gap:32px} .brand{display:flex;align-items:center;gap:12px;font-size:19px;font-weight:750;letter-spacing:-.4px} .brand-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#bceacb;color:#174634;font-size:20px} .aside-label{color:#a8c1b6;letter-spacing:.12em;font-size:10px;font-weight:700;margin:0 0 10px 10px} nav{display:grid;gap:5px} nav button{border:0;background:transparent;color:#c8dbd1;text-align:left;border-radius:8px;padding:11px 10px;white-space:nowrap} nav button[aria-current="page"]{background:#29483d;color:#fff;font-weight:650} nav b{display:inline-block;min-width:25px;color:#a6d9b8;font-weight:500} .aside-foot{margin-top:auto;font-size:12px;color:#bed1c5;border-top:1px solid #39534a;padding:16px 4px 0} .aside-foot strong{color:#eff8f0}
+  main{max-width:1400px;width:100%;margin:0 auto;padding:32px clamp(18px,4vw,54px) 48px} .top,.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap} .top{margin-bottom:24px} .eyebrow{font-size:11px;font-weight:750;color:var(--green);text-transform:uppercase;letter-spacing:.11em} h1{font-size:clamp(29px,4vw,42px);line-height:1.12;letter-spacing:-.05em;margin:6px 0 8px} .sub{color:var(--muted)} .badge{font-size:12px;font-weight:650;background:#e7eee6;border-radius:20px;padding:5px 10px} .btn{background:white;border:1px solid #c7d8ce;border-radius:8px;color:var(--ink);padding:9px 13px;font-weight:650} .primary{background:var(--green);border-color:var(--green);color:white} .btn:hover{filter:brightness(.95)} .actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap} .small-btn{padding:5px 8px;font-size:12px} .danger{color:#943c31} .context{display:flex;align-items:end;gap:13px;flex-wrap:wrap;padding:14px 16px;background:#e9f0e9;border:1px solid var(--line);border-radius:11px;margin-bottom:22px} label{display:grid;gap:5px;color:#334e43;font-size:12px;font-weight:650} input,select{min-width:0;background:white;color:var(--ink);border:1px solid #c9dbcf;border-radius:7px;padding:8px 9px} .context label{min-width:135px} .context .badge{margin-left:auto;background:white}
+  .metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:0 0 20px} .metric,.card{border:1px solid var(--line);border-radius:12px;background:var(--paper)} .metric{padding:18px} .metric:last-child{background:#def0e3;border-color:#c6dfce} .metric span{font-size:12px;font-weight:650;color:#3e5d50} .metric strong{display:block;font-variant-numeric:tabular-nums;font-size:clamp(21px,3vw,31px);letter-spacing:-.035em;margin-top:7px} .card{padding:18px;margin-bottom:16px} .card h2{font-size:18px;letter-spacing:-.02em} .sectionhead{margin-bottom:13px} .table-wrap{overflow-x:auto} table{border-collapse:collapse;width:100%;text-align:left} th,td{border-bottom:1px solid #e5ede7;padding:10px 9px;vertical-align:top} th{background:#eff4ef;color:#4b6157;font-weight:700;font-size:11px;white-space:nowrap} td{font-size:13px} td.money,th.money{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums} td.date{white-space:nowrap} .movement-tag{display:inline-block;border-radius:20px;padding:3px 8px;font-size:11px;font-weight:650;background:#f1ede5;color:#654f2d} .movement-tag.income{background:#e3f0e5;color:#205b42} .empty{text-align:center;color:var(--muted);padding:24px 8px} .notice{min-height:20px;color:var(--green);font-size:12px;margin-top:12px}
+  .paper{max-width:920px;margin:auto;padding:23px;background:#fff;color:#17251d;border:1px solid #c9d6cc;border-radius:8px} .paper-head{display:grid;grid-template-columns:110px 1fr 103px;border:1px solid #83998a;align-items:stretch} .paper-head>*{padding:10px;display:grid;align-content:center} .paper-mark{background:#e0eee3;color:#265b45;font-weight:800;font-size:11px;letter-spacing:.1em} .paper-title{font-size:17px;text-align:center;line-height:1.25;font-weight:800} .paper-meta{border-left:1px solid #83998a;font-size:11px} .paper-fields{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:11px;padding:8px 0 14px} .paper table{font-size:11px} .paper th,.paper td{padding:5px;border:1px solid #aab9ae;font-size:10px;white-space:normal} .paper td.money,.paper th.money{white-space:nowrap} .paper .band{background:#dcecdf;padding:4px 6px;margin-top:10px;font-size:11px;font-weight:800;text-transform:uppercase} .paper .subtotal{background:#eef5ea;font-weight:750} .balance{display:flex;justify-content:space-between;gap:12px;background:#e5efcc;border:1px solid #aab9ae;padding:7px;margin-top:9px;font-size:11px;font-weight:800} .signatures{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:36px;text-align:center;font-size:10px} .signatures div{border-top:1px solid #819487;padding-top:5px} .signatures span{display:block;min-height:15px}
+  dialog{width:min(600px,calc(100% - 28px));max-height:calc(100% - 24px);overflow:auto;border:1px solid var(--line);border-radius:14px;padding:20px;color:var(--ink)} dialog::backdrop{background:#13282799} dialog h2{margin-bottom:13px} .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px} .fields .full{grid-column:1/-1} form .actions{justify-content:flex-end;margin-top:14px} .error{color:#8a3025;margin-top:9px;font-size:12px}
+  @media(max-width:760px){.shell{grid-template-columns:1fr} aside{padding:12px 16px;gap:10px}.aside-label,.aside-foot{display:none}nav{display:flex;flex-wrap:wrap} nav button{padding:7px 9px}main{padding:20px 14px 32px}.paper{padding:9px}.paper-head{grid-template-columns:70px 1fr 73px}.paper-head>*{padding:6px}.paper-title{font-size:13px}}
+  @media(max-width:450px){.metrics{grid-template-columns:1fr;gap:7px}.metric{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}.metric strong{margin:0}.fields{grid-template-columns:1fr}.context label{flex:1}.context .badge{margin-left:0}}
+  @media print{@page{size:A4 portrait;margin:12mm}body{background:white}.shell{display:block}aside,.top,.context,#summary,#movements,.report-controls,.notice,dialog{display:none!important}main{padding:0;width:auto;max-width:none}#report{display:block!important}.paper{border:0;border-radius:0;margin:0;padding:0;max-width:none}.paper .table-wrap{overflow:visible}.paper-head,.paper-fields,.signatures,.balance,tr{break-inside:avoid}.paper thead{display:table-header-group}.band{break-after:avoid}.paper th,.paper td{font-size:9px}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside>
+    <div class="brand"><span class="brand-icon" aria-hidden="true">▤</span>Caja chica</div>
+    <div><div class="aside-label">CONTROL DE OPERACIONES</div><nav aria-label="Secciones">
+      <button type="button" data-page="summary" aria-current="page"><b aria-hidden="true">01</b> Caja del mes</button>
+      <button type="button" data-page="movements"><b aria-hidden="true">02</b> Movimientos</button>
+      <button type="button" data-page="report"><b aria-hidden="true">03</b> Rendición</button>
+    </nav></div>
+    <div class="aside-foot"><strong>Entorno de demostración</strong><br>Datos de ejemplo</div>
+  </aside>
+  <main>
+    <header class="top"><div><p class="eyebrow">Caja chica · Operaciones</p><h1 id="pageTitle">Caja del mes</h1><p class="sub" id="pageSubtitle">Controla los fondos recibidos y el saldo por rendir.</p></div><button class="btn primary" type="button" id="newMovement">+ Registrar movimiento</button></header>
+    <div class="context"><label>Mes de rendición<input id="month" type="month" value="2026-10" required></label><label>Unidad<select id="unit"><option>Operaciones Norte</option><option>Operaciones Sur</option></select></label><span class="badge">Vista de ejemplo</span></div>
+    <section id="summary" aria-labelledby="pageTitle">
+      <div class="metrics"><div class="metric"><span>Total recibido</span><strong id="received">S/ 0.00</strong></div><div class="metric"><span>Total gastado</span><strong id="spent">S/ 0.00</strong></div><div class="metric"><span>Saldo por rendir</span><strong id="balance">S/ 0.00</strong></div></div>
+      <div class="card"><div class="row sectionhead"><h2>Últimos movimientos</h2><button class="btn small-btn" data-go="movements">Ver todos</button></div><div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Tipo</th><th>Descripción</th><th class="money">Importe</th></tr></thead><tbody id="recentRows"></tbody></table></div></div>
+      <div class="card row"><div><h2>Rendición mensual</h2><p class="sub">Revisa los comprobantes y los totales antes de exportar.</p></div><button class="btn" data-go="report">Ver rendición →</button></div>
+    </section>
+    <section id="movements" hidden aria-labelledby="pageTitle"><div class="card"><div class="row sectionhead"><h2>Registro de movimientos</h2><label>Mostrar<select id="typeFilter"><option value="all">Todos</option><option value="income">Ingresos</option><option value="expense">Egresos</option></select></label></div><div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Tipo</th><th>Comprobante / RUC</th><th>Centro de costo</th><th>Descripción</th><th class="money">Importe</th><th>Acciones</th></tr></thead><tbody id="movementRows"></tbody></table></div></div></section>
+    <section id="report" hidden aria-labelledby="pageTitle">
+      <div class="card report-controls"><div class="row sectionhead"><div><h2>Vista previa</h2><p class="sub">Excel y PDF usan los movimientos de la unidad y el mes seleccionados.</p></div><div class="actions"><button id="exportExcel" class="btn">Descargar Excel</button><button id="printReport" class="btn primary">Imprimir / guardar PDF</button></div></div><div class="fields"><label>N.° de rendición<input id="reportNumber" value="RC-010"></label><label>Elaborado por<input id="preparedBy" placeholder="Nombre y apellido"></label><label>Revisado por<input id="reviewedBy" placeholder="Nombre y apellido"></label><label>Aprobado por<input id="approvedBy" placeholder="Nombre y apellido"></label></div></div>
+      <article id="reportPaper" class="paper" aria-label="Formato de rendición de caja chica"></article>
+    </section>
+    <p id="status" class="notice" role="status"></p>
+  </main>
+</div>
+<dialog id="editor">
+  <form id="movementForm">
+    <h2 id="editorTitle">Registrar movimiento</h2>
+    <div class="fields">
+      <label>Tipo de movimiento<select id="movementType"><option value="expense">Egreso</option><option value="income">Ingreso</option></select></label>
+      <label>Fecha<input id="movementDate" type="date" required></label>
+      <label>Tipo de documento<select id="documentType"><option>Factura</option><option>Boleta</option><option>Recibo</option><option>Transferencia</option><option>DJ</option><option>Sin documento</option></select></label>
+      <label>N.° de documento<input id="documentNumber" maxlength="40" placeholder="F001-0204"></label>
+      <label>RUC<input id="taxId" inputmode="numeric" pattern="[0-9]{11}" maxlength="11" placeholder="11 dígitos, si aplica"></label>
+      <label id="costField">Centro de costo<input id="costCenter" maxlength="40" placeholder="Ej. OP-001"></label>
+      <label class="full">Descripción<input id="description" maxlength="160" required></label>
+      <label>Importe (S/)<input id="amount" type="number" min="0.01" max="9999999.99" step="0.01" required></label>
+    </div>
+    <p id="formError" class="error" role="alert"></p>
+    <div class="actions"><button type="button" class="btn" id="cancelMovement">Cancelar</button><button class="btn primary" type="submit">Guardar movimiento</button></div>
+  </form>
+</dialog>
+<script>
+'use strict';
+const byId = id => document.getElementById(id);
+const money = new Intl.NumberFormat('es-PE', {style:'currency',currency:'PEN',minimumFractionDigits:2});
+const soles = cents => money.format(cents / 100);
+const dateText = value => value.split('-').reverse().join('/');
+const escapeText = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const north = 'Operaciones Norte';
+let movements = [
+  {id:1, unit:north, type:'income', date:'2026-10-01', documentType:'Transferencia', documentNumber:'TR-001', description:'Asignación de caja chica', cents:200000},
+  {id:2, unit:north, type:'expense', date:'2026-10-03', documentType:'Factura', documentNumber:'F001-0204', costCenter:'OP-001', description:'Movilidad del equipo de campo', cents:15500},
+  {id:3, unit:north, type:'expense', date:'2026-10-06', documentType:'Boleta', documentNumber:'B002-0132', costCenter:'OP-002', description:'Materiales para mantenimiento', cents:38990},
+  {id:4, unit:north, type:'expense', date:'2026-10-08', documentType:'Factura', documentNumber:'F003-0081', costCenter:'OP-001', description:'Almuerzo del personal de campo', cents:23250},
+  {id:5, unit:north, type:'income', date:'2026-10-15', documentType:'Transferencia', documentNumber:'TR-015', description:'Reposición de fondos', cents:50000},
+  {id:6, unit:north, type:'expense', date:'2026-10-19', documentType:'Factura', documentNumber:'F001-0230', costCenter:'OP-003', description:'Compra de útiles y suministros', cents:46040},
+  {id:7, unit:north, type:'expense', date:'2026-10-26', documentType:'Recibo', documentNumber:'R-007', costCenter:'OP-001', description:'Traslado de herramientas', cents:82500}
+];
+let nextId = 8;
+let editing = null;
+let page = 'summary';
+const pages = {
+  summary:['Caja del mes','Controla los fondos recibidos y el saldo por rendir.'],
+  movements:['Movimientos','Registra y corrige los comprobantes del período.'],
+  report:['Rendición mensual','Revisa el documento que entregarás al cierre del mes.']
+};
+
+function reportData() {
+  const month = byId('month').value;
+  const unit = byId('unit').value;
+  const rows = movements.filter(row => row.unit === unit && row.date.startsWith(month + '-'));
+  rows.sort((a,b) => a.date.localeCompare(b.date) || a.id - b.id);
+  const sum = type => rows.filter(row => row.type === type).reduce((total,row) => total + row.cents,0);
+  const received = sum('income');
+  const spent = sum('expense');
+  const [year, index] = month.split('-').map(Number);
+  const closeDate = month ? `${month}-${new Date(year,index,0).getDate()}` : '';
+  return {rows,month,unit,received,spent,balance:received-spent,closeDate};
+}
+
+function rowCells(values) {return values.map(value => `<td>${escapeText(value)}</td>`).join('');}
+function emptyRow(columns) {return `<tr><td class="empty" colspan="${columns}">Sin movimientos para esta selección.</td></tr>`;}
+function tag(type) {return type === 'income' ? '<span class="movement-tag income">Ingreso</span>' : '<span class="movement-tag">Egreso</span>';}
+function displayPaper(data) {
+  const {rows,received,spent,balance,unit,closeDate} = data;
+  const groups = [['income','Ingresos',received],['expense','Egresos',spent]];
+  const sections = groups.map(([type,title,total]) => {
+    const columns = type === 'expense' ? 7 : 6;
+    const body = rows.filter(row => row.type === type).map(row => {
+      const cells = [dateText(row.date),row.documentType,row.documentNumber || '—',row.taxId || '—'];
+      if (type === 'expense') cells.push(row.costCenter || '—');
+      cells.push(row.description);
+      return `<tr>${rowCells(cells)}<td class="money">${soles(row.cents)}</td></tr>`;
+    }).join('') || emptyRow(columns);
+    return `<h3 class="band">${title}</h3><div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Tipo doc.</th><th>N.° doc.</th><th>RUC</th>${type === 'expense' ? '<th>Centro de costo</th>' : ''}<th>Descripción</th><th class="money">Importe</th></tr></thead><tbody>${body}<tr class="subtotal"><td colspan="${columns-1}">Total ${title.toLowerCase()}</td><td class="money">${soles(total)}</td></tr></tbody></table></div>`;
+  }).join('');
+  const signatures = [['preparedBy','Elaborado por'],['reviewedBy','Revisado por'],['approvedBy','Aprobado por']];
+  byId('reportPaper').innerHTML = `<header class="paper-head"><div class="paper-mark">CAJA CHICA</div><div class="paper-title">FORMATO DE RENDICIÓN<br>DE CAJA CHICA</div><div class="paper-meta">Versión 01</div></header><div class="paper-fields"><div><b>N.° Documento</b> ${escapeText(byId('reportNumber').value || '—')}</div><div><b>Fecha</b> ${dateText(closeDate) || '—'}</div><div><b>Unidad</b> ${escapeText(unit)}</div></div>${sections}<div class="balance"><span>SALDO PENDIENTE DE RENDICIÓN</span><span>${soles(balance)}</span></div><div class="signatures">${signatures.map(([id,label])=>`<div><span>${escapeText(byId(id).value)}</span><b>${label}</b></div>`).join('')}</div>`;
+}
+
+function render() {
+  const data = reportData();
+  const rows = data.rows.slice().reverse();
+  for (const field of ['received','spent','balance']) byId(field).textContent = soles(data[field]);
+  byId('recentRows').innerHTML = rows.slice(0,5).map(row => `<tr><td class="date">${dateText(row.date)}</td><td>${tag(row.type)}</td><td>${escapeText(row.description)}</td><td class="money">${soles(row.cents)}</td></tr>`).join('') || emptyRow(4);
+  const filter = byId('typeFilter').value;
+  byId('movementRows').innerHTML = rows.filter(row => filter === 'all' || row.type === filter).map(row => `<tr><td class="date">${dateText(row.date)}</td><td>${tag(row.type)}</td><td>${escapeText(row.documentType)} ${escapeText(row.documentNumber || '')}${row.taxId ? `<br>${escapeText(row.taxId)}` : ''}</td>${rowCells([row.costCenter || '—',row.description])}<td class="money">${soles(row.cents)}</td><td><div class="actions"><button class="btn small-btn" data-edit="${row.id}">Editar</button><button class="btn small-btn danger" data-delete="${row.id}">Eliminar</button></div></td></tr>`).join('') || emptyRow(7);
+  displayPaper(data);
+}
+
+function showPage(name) {
+  page = name;
+  for (const key of Object.keys(pages)) byId(key).hidden = key !== page;
+  for (const button of document.querySelectorAll('[data-page]')) {
+    if (button.dataset.page === page) button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  }
+  byId('pageTitle').textContent = pages[page][0];
+  byId('pageSubtitle').textContent = pages[page][1];
+  render();
+}
+
+function updateCostField() {
+  const expense = byId('movementType').value === 'expense';
+  byId('costField').hidden = !expense;
+  byId('costCenter').required = expense;
+}
+
+function openEditor(row) {
+  const {month} = reportData();
+  if (!month) {byId('status').textContent = 'Elige un mes de rendición.'; return;}
+  editing = row?.id ?? null;
+  byId('editorTitle').textContent = row ? 'Editar movimiento' : 'Registrar movimiento';
+  byId('movementForm').reset();
+  byId('formError').textContent = '';
+  const [year,index] = month.split('-').map(Number);
+  const date = byId('movementDate');
+  date.min = month + '-01';
+  date.max = `${month}-${new Date(year,index,0).getDate()}`;
+  date.value = row?.date || date.min;
+  byId('movementType').value = row?.type || 'expense';
+  for (const field of ['documentType','documentNumber','taxId','costCenter','description']) {
+    byId(field).value = row?.[field] || (field === 'documentType' ? 'Factura' : '');
+  }
+  byId('amount').value = row ? (row.cents/100).toFixed(2) : '';
+  updateCostField();
+  byId('editor').showModal();
+}
+
+document.addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (!button) return;
+  const destination = button.dataset.page || button.dataset.go;
+  if (destination) showPage(destination);
+  if (button.dataset.edit) openEditor(movements.find(row => row.id === Number(button.dataset.edit)));
+  if (button.dataset.delete && confirm('¿Eliminar este movimiento de ejemplo?')) {
+    movements = movements.filter(row => row.id !== Number(button.dataset.delete));
+    render();
+    byId('status').textContent = 'Movimiento eliminado. Se actualizaron los totales.';
+  }
+});
+byId('newMovement').onclick = () => openEditor();
+byId('cancelMovement').onclick = () => byId('editor').close();
+byId('movementType').onchange = updateCostField;
+for (const field of ['month','unit','typeFilter','reportNumber','preparedBy','reviewedBy','approvedBy']) byId(field).addEventListener('input',render);
+byId('movementForm').onsubmit = event => {
+  event.preventDefault();
+  const type = byId('movementType').value;
+  const description = byId('description').value.trim();
+  const costCenter = byId('costCenter').value.trim();
+  if (!description || (type === 'expense' && !costCenter)) {
+    byId('formError').textContent = 'Completa la descripción y el centro de costo si es un egreso.';
+    return;
+  }
+  const row = {id:editing ?? nextId++, unit:byId('unit').value, type, date:byId('movementDate').value,
+    documentType:byId('documentType').value, documentNumber:byId('documentNumber').value.trim(),
+    taxId:byId('taxId').value.trim(), costCenter:type === 'expense' ? costCenter : '', description,
+    cents:Math.round(Number(byId('amount').value)*100)};
+  if (editing === null) movements.push(row);
+  else movements = movements.map(item => item.id === editing ? row : item);
+  byId('editor').close();
+  render();
+  byId('status').textContent = 'Movimiento guardado. La rendición ya incluye el cambio.';
+};
+byId('printReport').onclick = () => {showPage('report'); window.print();};
+
+// XLSX packages the report in an uncompressed ZIP so the demo works offline.
+function zipFiles(files) {
+  const encoder = new TextEncoder();
+  const chunks = [], directory = [];
+  let offset = 0;
+  function bytes(size, write) {const array = new Uint8Array(size); write(new DataView(array.buffer)); return array;}
+  function crc32(data) {
+    let crc = 0xffffffff;
+    for (const byte of data) {
+      crc ^= byte;
+      for (let bit=0; bit<8; bit++) crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0);
+    }
+    return (crc ^ 0xffffffff) >>> 0;
+  }
+  for (const [name,content] of Object.entries(files)) {
+    const filename = encoder.encode(name), data = encoder.encode(content), crc = crc32(data);
+    const local = bytes(30, view => {
+      view.setUint32(0,0x04034b50,true); view.setUint16(4,20,true); view.setUint16(12,33,true);
+      view.setUint32(14,crc,true); view.setUint32(18,data.length,true); view.setUint32(22,data.length,true); view.setUint16(26,filename.length,true);
+    });
+    const entry = bytes(46, view => {
+      view.setUint32(0,0x02014b50,true); view.setUint16(4,20,true); view.setUint16(6,20,true); view.setUint16(14,33,true);
+      view.setUint32(16,crc,true); view.setUint32(20,data.length,true); view.setUint32(24,data.length,true); view.setUint16(28,filename.length,true); view.setUint32(42,offset,true);
+    });
+    chunks.push(local,filename,data);
+    directory.push(entry,filename);
+    offset += local.length+filename.length+data.length;
+  }
+  const end = bytes(22, view => {
+    view.setUint32(0,0x06054b50,true); view.setUint16(8,directory.length/2,true); view.setUint16(10,directory.length/2,true);
+    view.setUint32(12,directory.reduce((size,part)=>size+part.length,0),true); view.setUint32(16,offset,true);
+  });
+  return [...chunks,...directory,end];
+}
+
+function workbook(data) {
+  const rows = [];
+  const add = (values,style=0) => {rows.push({values,style}); return rows.length;};
+  add(['FORMATO DE RENDICIÓN DE CAJA CHICA'],1);
+  add(['N.° Documento',byId('reportNumber').value,'Fecha',dateText(data.closeDate),'Unidad',data.unit]);
+  add([]);
+  function section(type,title) {
+    add([title.toUpperCase()],1);
+    add(['Fecha','Tipo doc.','N.° doc.','RUC','Centro de costo','Descripción','Importe (S/)'],1);
+    const first = rows.length + 1;
+    for (const row of data.rows.filter(row=>row.type===type)) {
+      add([dateText(row.date),row.documentType,row.documentNumber || '',row.taxId || '',row.costCenter || '',row.description,row.cents/100]);
+    }
+    const last = rows.length;
+    const total = type === 'income' ? data.received : data.spent;
+    return add([`Total ${title.toLowerCase()}`,'','','','', '', {formula:last>=first ? `SUM(G${first}:G${last})` : '0', value:total/100}],2);
+  }
+  const incomeRow = section('income','Ingresos');
+  add([]);
+  const expenseRow = section('expense','Egresos');
+  add(['Saldo pendiente de rendición','','','','','',{formula:`G${incomeRow}-G${expenseRow}`,value:data.balance/100}],2);
+  add([]);add([]);
+  add(['Elaborado por',byId('preparedBy').value,'Revisado por',byId('reviewedBy').value,'Aprobado por',byId('approvedBy').value]);
+  const safeXml = value => escapeText(String(value).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g,''));
+  const sheetRows = rows.map(({values,style},index) => `<row r="${index+1}">${values.map((value,column) => {
+    const ref = String.fromCharCode(65+column)+(index+1);
+    if (typeof value === 'number') return `<c r="${ref}" s="3"><v>${value}</v></c>`;
+    if (typeof value === 'object') return `<c r="${ref}" s="4"><f>${value.formula}</f><v>${value.value}</v></c>`;
+    return `<c r="${ref}" s="${style}" t="inlineStr"><is><t xml:space="preserve">${safeXml(value)}</t></is></c>`;
+  }).join('')}</row>`).join('');
+  const main = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+  const relationship = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+  const packageRel = 'http://schemas.openxmlformats.org/package/2006/relationships';
+  const contentTypes = 'http://schemas.openxmlformats.org/package/2006/content-types';
+  const mime = 'application/vnd.openxmlformats-officedocument.spreadsheetml';
+  return zipFiles({
+    '[Content_Types].xml':`<Types xmlns="${contentTypes}"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="${mime}.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="${mime}.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="${mime}.styles+xml"/></Types>`,
+    '_rels/.rels':`<Relationships xmlns="${packageRel}"><Relationship Id="rId1" Type="${relationship}/officeDocument" Target="xl/workbook.xml"/></Relationships>`,
+    'xl/workbook.xml':`<workbook xmlns="${main}" xmlns:r="${relationship}"><sheets><sheet name="Rendición" sheetId="1" r:id="rId1"/></sheets></workbook>`,
+    'xl/_rels/workbook.xml.rels':`<Relationships xmlns="${packageRel}"><Relationship Id="rId1" Type="${relationship}/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="${relationship}/styles" Target="styles.xml"/></Relationships>`,
+    'xl/styles.xml':`<styleSheet xmlns="${main}"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE0EEE3"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border/></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="5"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="4" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="4" fontId="1" fillId="2" borderId="0" xfId="0" applyNumberFormat="1" applyFill="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`,
+    'xl/worksheets/sheet1.xml':`<worksheet xmlns="${main}"><cols>${[17,17,17,17,19,49,17].map((width,i)=>`<col min="${i+1}" max="${i+1}" width="${width}" customWidth="1"/>`).join('')}</cols><sheetData>${sheetRows}</sheetData><mergeCells count="1"><mergeCell ref="A1:G1"/></mergeCells></worksheet>`
+  });
+}
+
+byId('exportExcel').onclick = () => {
+  const data = reportData();
+  const file = new Blob(workbook(data),{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const url = URL.createObjectURL(file);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `rendicion-caja-chica-${data.month || 'sin-periodo'}.xlsx`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+};
+showPage('summary');
+</script>
+</body>
+</html>
